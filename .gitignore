@@ -3,6 +3,8 @@ dist/
 .npm-cache/
 package-lock.json
 public/resume.pdf
+tools/
+ai-pm-portfolio-source.zip
 dev.out.log
 dev.err.log
 
