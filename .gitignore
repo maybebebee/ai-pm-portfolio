@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .npm-cache/
+package-lock.json
 public/resume.pdf
 dev.out.log
 dev.err.log
