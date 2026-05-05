@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type PageKey = 'dashboard' | 'jobs' | 'screening' | 'interview' | 'analysis' | 'talent';
 
@@ -125,7 +125,7 @@ const candidates: Candidate[] = [
   },
 ];
 
-function App() {
+function BoleOneDemo() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [activePage, setActivePage] = useState<PageKey>('dashboard');
   const [selectedJob, setSelectedJob] = useState(jobs[1]);
@@ -262,6 +262,166 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   );
 }
 
+function PortfolioHome() {
+  const portfolioProjects = [
+    {
+      name: 'AI 知识库答疑系统 Demo',
+      description: '基于 RAG 架构设计的文档问答系统，支持知识库检索、答案生成与引用溯源。',
+      role: '产品设计 / Demo 搭建 / 流程设计',
+      tags: ['RAG', '知识库问答', 'Prompt', 'AI 产品设计'],
+      href: '#projects',
+    },
+    {
+      name: '伯乐一号，智能招聘评估系统',
+      description: '面向企业招聘场景的 AI 人才评价系统，通过多 Agent 决策辅助 HR 提升筛选效率。',
+      role: '产品负责人 / 需求分析 / 商业计划 / 产品方案设计',
+      tags: ['AI 招聘', 'Agent', 'ToB 产品', '多模态分析'],
+      href: '#/bole-one',
+    },
+    {
+      name: '学科陪跑与 AI 诊断产品',
+      description: '面向高中学生与家长的学情诊断和陪跑规划产品，围绕学生画像、学科诊断和执行规划形成服务闭环。',
+      role: '产品策划 / 用户洞察 / 服务流程设计 / 内容运营',
+      tags: ['教育产品', '用户画像', '诊断报告', '服务设计'],
+      href: '#projects',
+    },
+  ];
+
+  return (
+    <main className="min-h-screen bg-[#f7fafc] text-slate-900">
+      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-6 lg:px-8">
+        <a href="#top" className="text-base font-black text-slate-950">范与恒</a>
+        <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-600 sm:flex">
+          <a className="transition hover:text-teal-700" href="#about">关于我</a>
+          <a className="transition hover:text-teal-700" href="#projects">作品集</a>
+          <a className="transition hover:text-teal-700" href="#contact">联系</a>
+        </nav>
+      </header>
+
+      <section id="top" className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 pt-10 sm:px-6 sm:pt-16 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:pb-24">
+        <div>
+          <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">
+            AI 产品经理方向 · 大模型应用产品
+          </div>
+          <h1 className="mt-7 text-4xl font-black leading-tight text-slate-950 sm:text-6xl">范与恒</h1>
+          <p className="mt-4 text-xl font-bold text-teal-800 sm:text-2xl">AI 产品经理方向</p>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            具备软件工程背景与 AI 产品实践意识，关注大模型应用、RAG、Agent 与 AI 工作流，能够结合产品设计、技术理解与 Vibe-Coding 推进可落地的 AI Demo。
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href="#projects" className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-teal-700">
+              查看作品集
+            </a>
+            <a href="#contact" className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-bold text-slate-900 transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-800">
+              简历可按需提供
+            </a>
+          </div>
+        </div>
+
+        <aside className="rounded-[28px] border border-slate-200 bg-white p-7 shadow-[0_24px_70px_rgba(15,23,42,0.08)]">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-700">Portfolio 2026</p>
+          <h2 className="mt-4 text-3xl font-black text-slate-950">AI Product Manager</h2>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {['RAG', 'Agent', 'Prompt', 'PRD', 'Vibe-Coding'].map((tag) => <Badge key={tag}>{tag}</Badge>)}
+          </div>
+          <div className="mt-7 grid grid-cols-2 gap-3 text-sm">
+            <div className="rounded-2xl bg-slate-50 p-4"><p className="text-slate-500">学校</p><p className="mt-1 font-bold">浙江工商大学</p></div>
+            <div className="rounded-2xl bg-slate-50 p-4"><p className="text-slate-500">专业</p><p className="mt-1 font-bold">软件工程</p></div>
+            <div className="col-span-2 rounded-2xl bg-slate-50 p-4"><p className="text-slate-500">当前目标</p><p className="mt-1 font-bold">AI 产品经理实习机会</p></div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about" className="border-y border-slate-200 bg-white px-5 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-700">About</p>
+          <h2 className="mt-3 text-3xl font-black">围绕 AI 产品落地建立能力结构</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['产品能力', '需求分析、PRD、原型设计、竞品分析'],
+              ['AI 产品能力', 'Prompt、RAG、Agent、AI 工作流'],
+              ['技术理解', 'React、TypeScript、Python、SQL、API 联调'],
+              ['实践经历', '竞赛项目、AI Demo、教育产品、行业学习'],
+            ].map(([title, desc]) => (
+              <article key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="font-black">{title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{desc}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" className="px-5 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-700">Projects</p>
+          <h2 className="mt-3 text-3xl font-black">项目作品集</h2>
+          <p className="mt-4 max-w-3xl leading-7 text-slate-600">每个项目都围绕真实场景、用户问题、产品方案和 Demo 能力展开，展示从产品思考到可交互原型的推进能力。</p>
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            {portfolioProjects.map((project) => (
+              <article key={project.name} className="flex min-h-[24rem] flex-col rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(15,23,42,0.08)]">
+                <h3 className="text-xl font-black leading-snug">{project.name}</h3>
+                <p className="mt-4 text-sm leading-6 text-slate-600">{project.description}</p>
+                <p className="mt-5 text-sm"><span className="font-bold">我的角色：</span>{project.role}</p>
+                <div className="mt-5 flex flex-wrap gap-2">{project.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}</div>
+                <a href={project.href} className="mt-auto inline-flex w-fit items-center rounded-xl bg-slate-950 px-4 py-2 text-sm font-bold text-white transition hover:bg-teal-700">
+                  查看详情
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-slate-950 px-5 py-16 text-white sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-teal-300">Methodology</p>
+          <h2 className="mt-3 text-3xl font-black">项目详情方法论</h2>
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-5">
+            {['项目背景', '用户痛点', '目标用户', '产品目标', '核心流程', '功能结构', '原型 / Demo', '技术理解', '产品指标', '项目复盘'].map((item, index) => (
+              <div key={item} className="rounded-2xl border border-white/10 bg-white/10 p-4">
+                <p className="text-xs font-bold text-teal-300">{String(index + 1).padStart(2, '0')}</p>
+                <p className="mt-2 text-sm font-bold">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer id="contact" className="border-t border-slate-200 bg-white px-5 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2">
+          <div>
+            <h2 className="text-2xl font-black">联系方式</h2>
+            <p className="mt-3 text-slate-600">正在寻找 AI 产品经理实习机会</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-slate-200 p-4"><p className="text-sm text-slate-500">邮箱</p><p className="mt-1 font-bold">可在简历中查看</p></div>
+            <a className="rounded-2xl border border-slate-200 p-4 hover:bg-teal-50" href="https://github.com/maybebebee"><p className="text-sm text-slate-500">GitHub</p><p className="mt-1 break-words font-bold">github.com/maybebebee</p></a>
+            <div className="rounded-2xl border border-slate-200 p-4"><p className="text-sm text-slate-500">微信</p><p className="mt-1 font-bold">可在简历中查看</p></div>
+            <div className="rounded-2xl border border-slate-200 p-4"><p className="text-sm text-slate-500">状态</p><p className="mt-1 font-bold">寻找 AI PM 实习</p></div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
+
+function App() {
+  const [route, setRoute] = useState(() => window.location.hash || '#/');
+
+  useEffect(() => {
+    const handleHashChange = () => setRoute(window.location.hash || '#/');
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  if (route === '#/bole-one') {
+    return <BoleOneDemo />;
+  }
+
+  return <PortfolioHome />;
+}
+
 function Sidebar({ activePage, onChange }: { activePage: PageKey; onChange: (page: PageKey) => void }) {
   return (
     <aside className="hidden rounded-[24px] border border-white bg-slate-950 p-3 text-white shadow-[0_20px_60px_rgba(15,23,42,0.12)] lg:block">
@@ -297,7 +457,9 @@ function Topbar({ title }: { title: string }) {
       <div className="flex items-center gap-4">
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-sm font-black text-white">B1</div>
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">伯乐一号</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+            <a href="#/" className="transition hover:text-teal-600">返回作品集</a>
+          </p>
           <h1 className="text-xl font-black">{title}</h1>
         </div>
       </div>
