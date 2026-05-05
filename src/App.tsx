@@ -142,12 +142,12 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900">
-      <div className="flex min-h-screen">
-        <Sidebar activePage={activePage} onChange={setActivePage} />
-        <main className="min-w-0 flex-1">
-          <Topbar title={navItems.find((item) => item.key === activePage)?.label ?? '仪表盘'} />
-          <div className="p-4 sm:p-6">
+    <div className="min-h-screen bg-[#f5f7fb] text-slate-900">
+      <main className="mx-auto min-h-screen max-w-[1520px] px-4 py-4">
+        <Topbar title={navItems.find((item) => item.key === activePage)?.label ?? '仪表盘'} />
+        <div className="mt-4 grid gap-4 lg:grid-cols-[220px_1fr]">
+          <Sidebar activePage={activePage} onChange={setActivePage} />
+          <section className="min-w-0 rounded-[28px] border border-white bg-white/70 p-4 shadow-[0_20px_70px_rgba(15,23,42,0.08)] backdrop-blur sm:p-6">
             {activePage === 'dashboard' && (
               <Dashboard
                 onNavigate={setActivePage}
@@ -175,109 +175,107 @@ function App() {
             {activePage === 'interview' && <InterviewPage candidate={selectedCandidate} onFinish={() => setActivePage('analysis')} />}
             {activePage === 'analysis' && <AnalysisPage candidate={selectedCandidate} selectedJob={selectedJob} onTalent={() => setActivePage('talent')} />}
             {activePage === 'talent' && <TalentPage candidates={candidates} />}
-          </div>
-        </main>
-      </div>
+          </section>
+        </div>
+      </main>
     </div>
   );
 }
 
 function LoginScreen({ onLogin }: { onLogin: () => void }) {
   return (
-    <div className="grid min-h-screen bg-slate-50 lg:grid-cols-[1.2fr_0.8fr]">
-      <section className="relative overflow-hidden bg-[#080d18] px-8 py-10 text-white sm:px-14 lg:px-20">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(96,165,250,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(96,165,250,0.06)_1px,transparent_1px)] bg-[size:72px_72px]" />
-        <div className="absolute left-20 top-10 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
-        <div className="relative z-10 flex min-h-[calc(100vh-5rem)] flex-col">
-          <div className="flex items-center gap-5">
-            <div className="flex h-24 w-24 items-center justify-center rounded-3xl border border-blue-300/25 bg-blue-400/15">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-400 text-4xl font-black">智</div>
+    <div className="min-h-screen bg-[#f5f7fb] px-5 py-6 text-slate-900">
+      <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-7xl flex-col overflow-hidden rounded-[32px] border border-white bg-white shadow-[0_30px_90px_rgba(15,23,42,0.10)] lg:grid lg:grid-cols-[1fr_420px]">
+        <section className="relative overflow-hidden bg-[#eef4ff] p-8 sm:p-12">
+          <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-teal-400 via-sky-400 to-violet-400" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-950 text-xl font-black text-white">B1</div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.24em] text-slate-500">Bole One MVP</p>
+                <h1 className="text-xl font-black">伯乐一号 · 招聘决策台</h1>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.32em] text-blue-200/80">AI Recruiting Workbench</p>
-              <h1 className="mt-2 text-3xl font-black">伯乐一号</h1>
-            </div>
+            <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-teal-600 shadow-sm">AI Hiring OS</span>
           </div>
 
           <div className="mt-16 max-w-3xl">
-            <h2 className="text-6xl font-black leading-tight sm:text-7xl">
-              重新定义
-              <span className="block text-blue-400">招聘体验</span>
+            <p className="text-sm font-bold text-teal-600">从“筛简历”升级为“做招聘决策”</p>
+            <h2 className="mt-4 text-5xl font-black leading-tight tracking-tight sm:text-7xl">
+              用一个闭环
+              <span className="block text-slate-500">跑通招聘判断</span>
             </h2>
-            <p className="mt-8 text-xl font-semibold leading-9 text-slate-300">
-              AI 驱动的一站式招聘工作台，从岗位设置、简历初筛、面试辅助到综合推荐，全流程智能协同。
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600">
+              面向 HR 与业务面试官的 AI 招聘 MVP：把岗位标准、简历信息、面试记录和综合推荐放进同一条可追踪的数据链路。
             </p>
           </div>
 
-          <div className="mt-12 grid gap-4 xl:grid-cols-2">
+          <div className="mt-12 grid gap-4 lg:grid-cols-4">
             {[
-              ['ReAct 智能体', '全流程智能协同，自主规划执行招聘任务'],
-              ['简历智能筛选', '秒级匹配海量简历，精准定位优质人选'],
-              ['综合分析评估', '多维度深度解析，全面评估候选人素质'],
-              ['面试智能辅助', '实时语音转写与追问推荐，辅助面试决策'],
-            ].map(([title, desc]) => (
-              <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-6 backdrop-blur">
-                <p className="text-lg font-bold">{title}</p>
-                <p className="mt-2 text-sm text-slate-400">{desc}</p>
+              ['01', '定义岗位', '沉淀可执行筛选标准'],
+              ['02', '初筛排序', '给出候选人优先级'],
+              ['03', '面试追问', '辅助面试官验证风险'],
+              ['04', '推荐入库', '形成可复用人才资产'],
+            ].map(([step, title, desc]) => (
+              <div key={step} className="rounded-3xl bg-white p-5 shadow-sm">
+                <p className="text-sm font-black text-teal-600">{step}</p>
+                <p className="mt-5 font-black">{title}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-auto grid grid-cols-4 gap-6 border-t border-white/10 pt-9 text-sm text-slate-400">
-            {[
-              ['4/47', '智能体架构'],
-              ['8项', '功能模块'],
-              ['100+', '业务端点'],
-              ['全流程', '智能覆盖'],
-            ].map(([value, label]) => (
-              <div key={label}>
-                <p className="text-4xl font-black text-blue-300">{value}</p>
-                <p className="mt-2">{label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="flex items-center justify-center px-6 py-10">
-        <div className="w-full max-w-md rounded-3xl bg-white p-9 shadow-2xl shadow-slate-200">
-          <button className="text-sm text-slate-500">‹ 返回首页</button>
-          <div className="mt-8 flex items-center gap-4 border-b border-slate-100 pb-7">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-400 text-2xl font-black text-white">智</div>
-            <div>
-              <h2 className="text-xl font-black">伯乐一号</h2>
-              <p className="text-sm text-slate-500">HR 工作台入口</p>
+          <div className="mt-12 rounded-[28px] bg-slate-950 p-6 text-white">
+            <div className="grid gap-6 sm:grid-cols-4">
+              {[
+                ['91', '候选人样本'],
+                ['12', '岗位简历池'],
+                ['4', 'AI 分析节点'],
+                ['1', '最终推荐闭环'],
+              ].map(([value, label]) => (
+                <div key={label}>
+                  <p className="text-4xl font-black text-teal-300">{value}</p>
+                  <p className="mt-2 text-sm text-slate-400">{label}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <label className="mt-6 block text-sm font-medium text-slate-600">用户名</label>
-          <input className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 outline-none transition focus:border-blue-400" placeholder="请输入用户名" defaultValue="123" />
-          <label className="mt-5 block text-sm font-medium text-slate-600">密码</label>
-          <input className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 outline-none transition focus:border-blue-400" placeholder="请输入密码" type="password" defaultValue="123" />
-          <button onClick={onLogin} className="mt-8 w-full rounded-xl bg-blue-500 px-5 py-4 font-bold text-white transition hover:bg-blue-600">
-            登录进入 Demo
-          </button>
-          <p className="mt-6 text-center text-sm text-slate-400">MVP 演示账号：123 / 123</p>
-        </div>
-      </section>
+        </section>
+
+        <section className="flex items-center justify-center bg-white p-8">
+          <div className="w-full max-w-sm">
+            <p className="text-sm font-bold text-slate-400">DEMO LOGIN</p>
+            <h2 className="mt-3 text-3xl font-black">进入招聘决策台</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-500">用于演示最小闭环，不连接真实后端和候选人隐私数据。</p>
+            <label className="mt-8 block text-sm font-bold text-slate-600">用户名</label>
+            <input className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 outline-none transition focus:border-teal-400 focus:bg-white" placeholder="请输入用户名" defaultValue="123" />
+            <label className="mt-5 block text-sm font-bold text-slate-600">密码</label>
+            <input className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 outline-none transition focus:border-teal-400 focus:bg-white" placeholder="请输入密码" type="password" defaultValue="123" />
+            <button onClick={onLogin} className="mt-8 w-full rounded-2xl bg-slate-950 px-5 py-4 font-bold text-white transition hover:-translate-y-0.5 hover:bg-teal-600">
+              启动 MVP Demo
+            </button>
+            <p className="mt-5 text-center text-sm text-slate-400">演示账号：123 / 123</p>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
 
 function Sidebar({ activePage, onChange }: { activePage: PageKey; onChange: (page: PageKey) => void }) {
   return (
-    <aside className="hidden w-64 shrink-0 border-r border-slate-200 bg-white md:block">
-      <div className="flex h-18 items-center gap-3 border-b border-slate-100 px-5 py-4">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-400 to-emerald-400 text-xl font-black text-white">▣</div>
-        <div className="font-black">伯乐一号</div>
+    <aside className="hidden rounded-[24px] border border-white bg-slate-950 p-3 text-white shadow-[0_20px_60px_rgba(15,23,42,0.12)] lg:block">
+      <div className="px-3 py-4">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-500">Workflow</p>
+        <p className="mt-2 text-lg font-black">MVP 闭环</p>
       </div>
-      <nav className="space-y-2 p-4">
+      <nav className="mt-3 space-y-1">
         {navItems.map((item) => (
           <button
             key={item.key}
             onClick={() => onChange(item.key)}
-            className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition ${
-              activePage === item.key ? 'bg-blue-50 text-blue-600' : 'text-slate-600 hover:bg-slate-50'
+            className={`flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-semibold transition ${
+              activePage === item.key ? 'bg-white text-slate-950' : 'text-slate-400 hover:bg-white/10 hover:text-white'
             }`}
           >
             <span className="text-lg">{item.icon}</span>
@@ -285,9 +283,9 @@ function Sidebar({ activePage, onChange }: { activePage: PageKey; onChange: (pag
           </button>
         ))}
       </nav>
-      <div className="absolute bottom-0 hidden w-64 border-t border-slate-100 p-4 md:block">
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50">✈ 开发测试</button>
-        <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50">⚙ 系统设置</button>
+      <div className="mt-8 rounded-3xl bg-white/10 p-4">
+        <p className="text-sm font-bold">演示目标</p>
+        <p className="mt-2 text-xs leading-5 text-slate-400">展示 AI 产品经理如何把招聘流程拆成可验证的最小闭环。</p>
       </div>
     </aside>
   );
@@ -295,13 +293,18 @@ function Sidebar({ activePage, onChange }: { activePage: PageKey; onChange: (pag
 
 function Topbar({ title }: { title: string }) {
   return (
-    <header className="sticky top-0 z-20 flex h-18 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur sm:px-7">
-      <h1 className="text-xl font-black">{title}</h1>
+    <header className="sticky top-0 z-20 flex items-center justify-between rounded-[24px] border border-white bg-white/80 px-5 py-4 shadow-sm backdrop-blur sm:px-7">
       <div className="flex items-center gap-4">
-        <input className="hidden rounded-full bg-slate-100 px-5 py-2 text-sm outline-none sm:block" placeholder="搜索..." />
-        <span className="text-slate-400">♧</span>
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-300 font-bold text-white">1</span>
-        <span className="font-semibold">123⌄</span>
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-sm font-black text-white">B1</div>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">伯乐一号</p>
+          <h1 className="text-xl font-black">{title}</h1>
+        </div>
+      </div>
+      <div className="flex items-center gap-4">
+        <input className="hidden rounded-2xl bg-slate-100 px-5 py-3 text-sm outline-none transition focus:bg-white focus:ring-2 focus:ring-teal-200 sm:block" placeholder="搜索候选人 / 岗位" />
+        <span className="hidden rounded-full bg-teal-50 px-3 py-2 text-sm font-bold text-teal-600 sm:inline">MVP</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-950 text-sm font-bold text-white">HR</span>
       </div>
     </header>
   );
