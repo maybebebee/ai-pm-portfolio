@@ -308,6 +308,10 @@ function PortfolioHome() {
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
             具备软件工程背景与 AI 产品实践意识，关注大模型应用、RAG、Agent 与 AI 工作流，能够结合产品设计、技术理解与 Vibe-Coding 推进可落地的 AI Demo。
           </p>
+          <div className="mt-6 max-w-2xl rounded-2xl border border-sky-200 bg-sky-50/80 px-5 py-4 text-sm leading-7 text-slate-700 shadow-sm">
+            <span className="font-bold text-sky-800">公开版本说明：</span>
+            个人网页展示内容为可公开版本，主要呈现早期 Demo、产品思路与交互原型；部分完整方案因涉及团队资料与业务细节未完全公开，可在面试中进一步说明。
+          </div>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a href="#projects" className="inline-flex items-center justify-center rounded-xl bg-slate-950 px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-teal-700">
               查看作品集
