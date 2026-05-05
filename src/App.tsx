@@ -283,7 +283,7 @@ function PortfolioHome() {
       description: '面向高中学生与家长的学情诊断和陪跑规划产品，围绕学生画像、学科诊断和执行规划形成服务闭环。',
       role: '产品策划 / 用户洞察 / 服务流程设计 / 内容运营',
       tags: ['教育产品', '用户画像', '诊断报告', '服务设计'],
-      href: '#projects',
+      href: '#/study-coach',
     },
   ];
 
@@ -419,7 +419,184 @@ function App() {
     return <BoleOneDemo />;
   }
 
+  if (route === '#/study-coach') {
+    return <StudyCoachDetail />;
+  }
+
   return <PortfolioHome />;
+}
+
+function StudyCoachDetail() {
+  const portraitTypes = [
+    ['01', '绩优局限型', '成绩很好，但只活在学习这一维度里，对自我、职业、关系的认知严重缺失', ['学习能力强', '认知视野窄', '进大学后迷茫']],
+    ['02', '空转努力型', '每天大量学习，但方法低效，时间投入和成绩产出严重不匹配', ['刷题量大', '效率低下', '感动自己']],
+    ['03', '躺平失联型', '意义感断路，不学的时候平静而非焦虑，已经与学习断开连接', ['不学时平静', '找不到理由', '低温疏离']],
+    ['04', '高台跳水型', '初中优秀，升入高中后成绩断崖下滑，自我形象崩塌，陷入回避循环', ['落差巨大', '我变笨了', '回避挑战']],
+    ['05', '外驱依赖型', '学习动力完全依赖外部驱动，父母催、老师管才动，外力一撤就停', ['被推才学', '缺乏自主', '依赖监督']],
+    ['06', '家庭压力转移型', '家庭催促、比较、争吵等压力直接转移到学习状态上，情绪消耗大', ['关系紧张', '情绪内耗', '沟通困难']],
+    ['07', '基础重建型', '知识体系存在大量断层，当前学习进度和实际掌握程度差距很大', ['断层多', '听不懂新课', '越学越乱']],
+    ['08', '自驱精进型', '有清晰目标和自主学习意识，遇到成绩天花板，需要方法和认知系统升级', ['目标明确', '执行力强', '需要升级']],
+    ['09', '思而不行型', '对学习有想法和思考，能讲出逻辑，但从不落地实践，纸上谈兵', ['想法很多', '从不执行', '知行脱节']],
+  ];
+
+  const reports = [
+    {
+      title: '物理学科诊断报告',
+      desc: '用于展示学情诊断、知识断层定位、学习建议与后续陪跑策略。',
+      href: './reports/physics_diagnosis_report.pdf',
+      meta: 'PDF · 诊断报告',
+    },
+    {
+      title: '化学课程规划与备课方案 第1期',
+      desc: '用于展示从诊断到课程规划、阶段目标、备课结构和执行节奏的闭环。',
+      href: './reports/chemistry_course_plan_phase1.pdf',
+      meta: 'PDF · 课程规划',
+    },
+  ];
+
+  return (
+    <main className="min-h-screen bg-[#fbfaf7] text-slate-950">
+      <header className="sticky top-0 z-30 border-b border-amber-100 bg-[#fbfaf7]/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-8">
+          <a href="#/" className="text-sm font-bold text-slate-500 transition hover:text-amber-700">← 返回作品集</a>
+          <div className="rounded-full bg-white px-4 py-2 text-sm font-bold text-amber-700 shadow-sm">学科陪跑与 AI 诊断产品</div>
+        </div>
+      </header>
+
+      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.22em] text-amber-700">AI Study Coach</p>
+            <h1 className="mt-4 text-4xl font-black leading-tight sm:text-6xl">
+              从一次诊断开始，
+              <span className="block text-amber-700">形成可执行的陪跑方案</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+              这个详情页展示学科陪跑产品的两个核心产物：学生画像体系与个性化学习方案，并附上两份真实报告材料作为 Demo 佐证。
+            </p>
+          </div>
+          <div className="rounded-[28px] border border-amber-100 bg-white p-6 shadow-[0_24px_70px_rgba(120,53,15,0.08)]">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[
+                ['画像诊断', '识别学习状态与情绪底色'],
+                ['知识断层', '定位薄弱模块和补基路径'],
+                ['陪跑计划', '把建议转化为每周任务'],
+              ].map(([title, desc]) => (
+                <div key={title} className="rounded-2xl bg-amber-50 p-4">
+                  <p className="font-black text-amber-800">{title}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pb-14 sm:px-6 lg:px-8">
+        <div className="rounded-[30px] border border-amber-100 bg-white p-6 shadow-sm">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="text-sm font-bold text-amber-700">学生画像体系</p>
+              <h2 className="mt-2 text-3xl font-black">九大学习者画像类型</h2>
+              <p className="mt-3 text-slate-600">精准识别 · 对症介入 · 专属路径</p>
+            </div>
+            <div className="text-6xl font-black text-amber-100">09</div>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {portraitTypes.map(([num, title, desc, tags]) => (
+              <article key={num as string} className="rounded-2xl border border-slate-200 bg-[#fffdf8] p-5">
+                <div className="flex items-start justify-between">
+                  <span className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-bold text-amber-700">PORTRAIT · {num}</span>
+                  <span className="text-4xl font-black text-slate-100">{num}</span>
+                </div>
+                <h3 className="mt-4 text-xl font-black">{title}</h3>
+                <p className="mt-3 min-h-14 text-sm leading-6 text-slate-600">{desc}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {(tags as string[]).map((tag) => <span key={tag} className="rounded-lg bg-white px-2 py-1 text-xs text-slate-600 shadow-sm">{tag}</span>)}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pb-14 sm:px-6 lg:px-8">
+        <div className="rounded-[30px] border border-amber-100 bg-white p-6 shadow-sm">
+          <div className="text-center">
+            <h2 className="text-4xl font-black">
+              专属于你的 <span className="text-amber-700">个性化学习方案</span>
+            </h2>
+            <p className="mt-3 text-slate-600">从了解你这个人开始 · 到真正属于你的学习路径</p>
+          </div>
+          <div className="mt-8 grid gap-4 rounded-2xl border border-slate-200 p-5 lg:grid-cols-3">
+            {[
+              ['精准画像诊断', '先搞清楚你是谁，再谈怎么学'],
+              ['知识框架重建', '找到断层，按逻辑顺序补基础'],
+              ['执行闭环管理', '每周检验，持续迭代，不走弯路'],
+            ].map(([title, desc]) => (
+              <div key={title} className="rounded-2xl bg-slate-50 p-5">
+                <p className="text-lg font-black">{title}</p>
+                <p className="mt-2 text-sm text-slate-600">{desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 space-y-4">
+            <LearningStep label="初" title="第一次课：深度诊断与方案制定" steps={['学习者画像诊断', '学科知识框架诊断', '个性化方案制定']} />
+            <LearningStep label="续" title="每次课程：三段式推进结构" steps={['上周执行计划检验', '知识框架搭建与能力培养', '制定下周学习方案']} />
+          </div>
+          <div className="mt-6 grid gap-3 md:grid-cols-4">
+            {['不是补课，是重建', '不是管理，是陪伴', '不是追进度，是内化', '不是单一学科，是体系'].map((item) => (
+              <div key={item} className="rounded-2xl border border-amber-100 bg-amber-50 p-4 text-center font-bold text-amber-900">{item}</div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pb-20 sm:px-6 lg:px-8">
+        <div className="mb-6">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-amber-700">Reports</p>
+          <h2 className="mt-2 text-3xl font-black">报告材料</h2>
+          <p className="mt-3 text-slate-600">两份 PDF 可直接在线预览，也可以新窗口打开。</p>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          {reports.map((report) => (
+            <article key={report.title} className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm">
+              <div className="flex items-start justify-between gap-4 border-b border-slate-100 p-5">
+                <div>
+                  <p className="text-xs font-bold text-amber-700">{report.meta}</p>
+                  <h3 className="mt-2 text-xl font-black">{report.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{report.desc}</p>
+                </div>
+                <a href={report.href} target="_blank" rel="noreferrer" className="shrink-0 rounded-xl bg-slate-950 px-4 py-2 text-sm font-bold text-white transition hover:bg-amber-700">打开</a>
+              </div>
+              <iframe title={report.title} src={report.href} className="h-[520px] w-full bg-slate-50" />
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function LearningStep({ label, title, steps }: { label: string; title: string; steps: string[] }) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-[#fffdf8] p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-2xl font-black text-white">{label}</div>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-xl font-black">{title}</h3>
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            {steps.map((step, index) => (
+              <div key={step} className="rounded-xl border border-amber-100 bg-white p-4">
+                <p className="text-xs font-bold text-amber-700">STEP {String(index + 1).padStart(2, '0')}</p>
+                <p className="mt-2 font-bold">{step}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Sidebar({ activePage, onChange }: { activePage: PageKey; onChange: (page: PageKey) => void }) {
