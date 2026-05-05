@@ -269,7 +269,7 @@ function PortfolioHome() {
       description: '基于 RAG 架构设计的文档问答系统，支持知识库检索、答案生成与引用溯源。',
       role: '产品设计 / Demo 搭建 / 流程设计',
       tags: ['RAG', '知识库问答', 'Prompt', 'AI 产品设计'],
-      href: '#projects',
+      href: '#/knowledge-demo',
     },
     {
       name: '伯乐一号，智能招聘评估系统',
@@ -423,7 +423,181 @@ function App() {
     return <StudyCoachDetail />;
   }
 
+  if (route === '#/knowledge-demo') {
+    return <KnowledgeDemo />;
+  }
+
   return <PortfolioHome />;
+}
+
+function KnowledgeDemo() {
+  const [mode, setMode] = useState<'knowledge' | 'mistake'>('knowledge');
+  const [question, setQuestion] = useState('为什么物体做匀速圆周运动时速度变了，但速率不变？');
+  const [mistake, setMistake] = useState('已知小球在半径为 0.5m 的圆轨道上做匀速圆周运动，周期为 2s，求向心加速度。我把 v=2πr 直接代入 a=v²/r，漏掉了周期。');
+
+  const relatedProblems = [
+    ['基础同类', '圆周运动中的线速度计算', '半径为 0.4m 的小球做匀速圆周运动，周期为 4s，求线速度大小。', '先补齐 v = 2πr / T 的使用条件。'],
+    ['变式迁移', '由频率求向心加速度', '某物体以 2Hz 的频率做半径 0.2m 的匀速圆周运动，求向心加速度。', '把周期 T 和频率 f 的关系迁移到公式选择。'],
+    ['易错压轴', '圆周运动综合辨析', '汽车通过半径 50m 的弯道，速度为 10m/s，判断向心加速度方向并计算大小。', '巩固“方向改变”和“大小计算”两个知识点。'],
+  ];
+
+  return (
+    <main className="min-h-screen bg-[#f6f8fb] text-slate-950">
+      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-8">
+          <a href="#/" className="text-sm font-bold text-slate-500 transition hover:text-indigo-700">← 返回作品集</a>
+          <div className="rounded-full bg-indigo-50 px-4 py-2 text-sm font-bold text-indigo-700">AI 知识库答疑系统 Demo</div>
+        </div>
+      </header>
+
+      <section className="mx-auto max-w-7xl px-5 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.22em] text-indigo-700">RAG Learning Assistant</p>
+            <h1 className="mt-4 text-4xl font-black leading-tight sm:text-6xl">
+              知识点答疑
+              <span className="block text-indigo-700">与错题同类题推荐</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+              这个 MVP 用于展示 RAG 类教育产品的最小闭环：学生提出问题，系统从知识库检索依据并生成解释；学生输入错题，系统识别错误原因并推荐同类练习。
+            </p>
+          </div>
+          <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(30,41,59,0.08)]">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[
+                ['知识库检索', '课本概念、公式、例题、易错点'],
+                ['答案生成', '分层解释，先讲人话再给公式'],
+                ['练习推荐', '基于错因生成同类题路径'],
+              ].map(([title, desc]) => (
+                <div key={title} className="rounded-2xl bg-slate-50 p-4">
+                  <p className="font-black">{title}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pb-16 sm:px-6 lg:px-8">
+        <div className="rounded-[30px] border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+          <div className="flex flex-col gap-4 border-b border-slate-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 className="text-2xl font-black">MVP 工作台</h2>
+              <p className="mt-2 text-sm text-slate-500">模拟前端交互，不调用 API Key，便于投递展示与产品讲解。</p>
+            </div>
+            <div className="grid grid-cols-2 rounded-2xl bg-slate-100 p-1">
+              <button onClick={() => setMode('knowledge')} className={`rounded-xl px-4 py-2 text-sm font-bold transition ${mode === 'knowledge' ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500'}`}>知识点回复</button>
+              <button onClick={() => setMode('mistake')} className={`rounded-xl px-4 py-2 text-sm font-bold transition ${mode === 'mistake' ? 'bg-white text-indigo-700 shadow-sm' : 'text-slate-500'}`}>错题推荐</button>
+            </div>
+          </div>
+
+          {mode === 'knowledge' ? (
+            <div className="grid gap-6 pt-6 lg:grid-cols-[0.85fr_1.15fr]">
+              <div className="space-y-4">
+                <label className="block">
+                  <span className="text-sm font-bold text-slate-600">学生问题</span>
+                  <textarea value={question} onChange={(event) => setQuestion(event.target.value)} className="mt-2 min-h-40 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-indigo-400 focus:bg-white" />
+                </label>
+                <div className="rounded-2xl bg-indigo-50 p-4">
+                  <p className="font-black text-indigo-800">产品动作</p>
+                  <ol className="mt-3 space-y-2 text-sm leading-6 text-slate-600">
+                    <li>1. 识别问题意图：概念辨析 + 公式理解</li>
+                    <li>2. 检索知识库：圆周运动、速度、速率、向心加速度</li>
+                    <li>3. 生成解释：先给直观类比，再给物理定义</li>
+                  </ol>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <AnswerCard title="AI 回复" />
+                <div className="grid gap-4 md:grid-cols-2">
+                  <SourceCard title="知识库引用 01" content="速度是矢量，既有大小也有方向；速率是标量，只表示速度大小。" />
+                  <SourceCard title="知识库引用 02" content="匀速圆周运动中，速度方向沿切线不断变化，因此速度变化；但速度大小保持不变。" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="grid gap-6 pt-6 lg:grid-cols-[0.85fr_1.15fr]">
+              <div className="space-y-4">
+                <label className="block">
+                  <span className="text-sm font-bold text-slate-600">错题输入</span>
+                  <textarea value={mistake} onChange={(event) => setMistake(event.target.value)} className="mt-2 min-h-48 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-indigo-400 focus:bg-white" />
+                </label>
+                <div className="rounded-2xl bg-rose-50 p-4">
+                  <p className="font-black text-rose-700">错因识别</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">
+                    学生把线速度公式写成 v = 2πr，漏掉周期 T，本质是“公式条件缺失”和“变量关系未建模”。
+                  </p>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-black">同类题推荐路径</h3>
+                <p className="mt-2 text-sm text-slate-500">按“补概念 → 迁移公式 → 综合应用”排序，避免只刷相似题。</p>
+                <div className="mt-5 space-y-4">
+                  {relatedProblems.map(([level, title, content, target], index) => (
+                    <article key={title} className="rounded-2xl border border-slate-200 bg-white p-5">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-xs font-bold text-indigo-700">推荐 {index + 1} · {level}</p>
+                          <h4 className="mt-2 font-black">{title}</h4>
+                        </div>
+                        <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold text-indigo-700">同类题</span>
+                      </div>
+                      <p className="mt-4 text-sm leading-6 text-slate-600">{content}</p>
+                      <p className="mt-3 rounded-xl bg-slate-50 p-3 text-sm text-slate-600">训练目标：{target}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pb-20 sm:px-6 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {[
+            ['用户痛点', '学生问完题后只得到答案，无法知道自己缺的是概念、公式还是迁移能力。'],
+            ['产品目标', '把答疑、溯源、错因识别和同类题推荐串成一个可持续学习闭环。'],
+            ['后续扩展', '接入真实知识库、错题本、学习画像和阶段性诊断报告。'],
+          ].map(([title, desc]) => (
+            <div key={title} className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
+              <h3 className="font-black">{title}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-600">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function AnswerCard({ title }: { title: string }) {
+  return (
+    <div className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl font-black">{title}</h3>
+        <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-700">已生成</span>
+      </div>
+      <div className="mt-5 space-y-4 text-sm leading-7 text-slate-700">
+        <p>你可以把“速度”和“速率”理解成两个层级：速率只关心跑得快不快，速度还要关心朝哪个方向跑。</p>
+        <p>匀速圆周运动里的“匀速”，指的是速率不变。物体一直沿圆的切线方向运动，位置不断改变，切线方向也不断改变，所以速度这个矢量是在变化的。</p>
+        <div className="rounded-2xl bg-slate-50 p-4">
+          <p className="font-bold">一句话总结</p>
+          <p className="mt-2">速率不变，是因为速度大小恒定；速度变了，是因为方向一直在变。</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SourceCard({ title, content }: { title: string; content: string }) {
+  return (
+    <div className="rounded-2xl border border-indigo-100 bg-indigo-50 p-4">
+      <p className="text-sm font-black text-indigo-800">{title}</p>
+      <p className="mt-3 text-sm leading-6 text-slate-600">{content}</p>
+    </div>
+  );
 }
 
 function StudyCoachDetail() {
